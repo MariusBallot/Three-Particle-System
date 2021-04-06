@@ -1,20 +1,17 @@
 import * as THREE from 'three';
 
 class ParticleSystem {
-
-    constructor(pCount_, boxSize_) {
-        this.particleCount = pCount_;
-        this.plarticles;
-        this.particlMaterial;
-        this.particleSystem;
-        this.boxSize = boxSize_;
-
+    constructor() {
         this.bind();
-        this.init();
+        this.particleCount = 3000;
+        this.boxSize = 2;
+
     }
 
-    init() {
-        this.particles = new THREE.Geometry();
+    init(scene) {
+        this.scene = scene
+        this.particlesGeom = new THREE.BufferGeometry()
+        this.particlesPos = []
 
         for (let p = 0; p < this.particleCount; p++) {
 
@@ -23,41 +20,44 @@ class ParticleSystem {
             let z = Math.random() * this.boxSize - this.boxSize / 2;
 
             // Create the vertex
-            let particle = new THREE.Vector3(x, y, z);
-
-            // Add the vertex to the geometry
-            this.particles.vertices.push(particle);
+            this.particlesPos.push(x, y, z);
         }
+
+        this.particlesGeom.setAttribute('position', new THREE.Float32BufferAttribute(this.particlesPos, 3));
+
+        this.textLoader = new THREE.TextureLoader()
+        let eyes = this.textLoader.load("./particle.png")
 
         this.particleMaterial = new THREE.PointsMaterial(
             {
                 color: 0xffffff,
-                size: 0.01,
-                map: THREE.ImageUtils.loadTexture("assets/particle.png"),
-                blending: THREE.AdditiveBlending,
+                size: .05,
+                map: eyes,
+                // blending: THREE.AdditiveBlending,
                 transparent: true,
             });
 
-        this.particleSystem = new THREE.Points(this.particles, this.particleMaterial);
-        console.log(this.particleSystem);
+        this.particleSystem = new THREE.Points(this.particlesGeom, this.particleMaterial);
+        console.log(this.particlesGeom.attributes.position.array);
+        this.scene.add(this.particleSystem)
     }
 
-    translateParticles(x_, y_, z_) {
-        for (let p = 0; p < this.particleCount; p++) {
-            this.particleSystem.geometry.vertices[p].x += x_;
-            this.particleSystem.geometry.vertices[p].y += y_;
-            this.particleSystem.geometry.vertices[p].z += z_;
+    update() {
+        for (let i = 0; i < this.particleCount; i++) {
+            // this.particlesGeom.attributes.position.array[i * 3 + 0] += 0.01
+            // this.particlesGeom.attributes.position.array[i * 3 + 1] += 0.01
+            // this.particlesGeom.attributes.position.array[i * 3 + 2] += 0.01
         }
 
-        this.particleSystem.geometry.verticesNeedUpdate = true;
-
+        this.particlesGeom.attributes.position.needsUpdate = true;
     }
 
     bind() {
         this.init = this.init.bind(this)
-        this.translateParticles = this.translateParticles.bind(this)
+        this.update = this.update.bind(this)
     }
 
 }
 
-export { ParticleSystem as default }
+const _instance = new ParticleSystem()
+export default _instance

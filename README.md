@@ -1,8 +1,13 @@
-# Simple-Particle-System
-A simple class to create a quick particle systeme in three.js
+# ✨Simple-Particle-System✨
+A simple class to create a quick particle systeme in Three.js
 
 ## Usage
 ```
-let system = new ParticleSystem(<PARTICLE NUMBER>, <BIRTH BOX SIZE>);
-system.translateParticles(<X SPEED>, <Y SPEED>, <Z SPEED>)
+import ParticleSystem from "PATH/ParticleSystem"
+
+ParticleSystem.init(THREE.Scene)
+
+renderLoop(){
+    ParticleSystem.update()
+}
 ```
