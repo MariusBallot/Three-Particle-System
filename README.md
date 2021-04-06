@@ -1,5 +1,5 @@
 # ✨Three.BufferGeometry particle system✨
-A simple class to create a quick particle systeme in Three.js
+A simple class to create a quick particle system in Three.js
 
 ## Usage
 ```
