@@ -32,9 +32,6 @@ class ParticleSystem {
             {
                 color: 0xffffff,
                 size: .05,
-                map: eyes,
-                // blending: THREE.AdditiveBlending,
-                transparent: true,
             });
 
         this.particleSystem = new THREE.Points(this.particlesGeom, this.particleMaterial);
