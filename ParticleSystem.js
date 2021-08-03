@@ -25,9 +25,6 @@ class ParticleSystem {
 
         this.particlesGeom.setAttribute('position', new THREE.Float32BufferAttribute(this.particlesPos, 3));
 
-        this.textLoader = new THREE.TextureLoader()
-        let eyes = this.textLoader.load("./particle.png")
-
         this.particleMaterial = new THREE.PointsMaterial(
             {
                 color: 0xffffff,
