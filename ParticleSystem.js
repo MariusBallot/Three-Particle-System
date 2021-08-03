@@ -37,10 +37,12 @@ class ParticleSystem {
     }
 
     update() {
-        for (let i = 0; i < this.particleCount; i++) {
+        let i = 0
+        while (i < this.particleCount) {
             // this.particlesGeom.attributes.position.array[i * 3 + 0] += 0.01
             // this.particlesGeom.attributes.position.array[i * 3 + 1] += 0.01
             // this.particlesGeom.attributes.position.array[i * 3 + 2] += 0.01
+            i++
         }
 
         this.particlesGeom.attributes.position.needsUpdate = true;
